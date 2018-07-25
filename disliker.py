@@ -35,6 +35,9 @@ item = [item['id'] for item in photos['items']]
 len_photo = len(owner)
 print("Total number of likes:", len_photo)
 for i in range(len_photo):
-    user.method('likes.delete',{'type': 'photo', 'owner_id': owner[i], 'item_id': item[i]})
+    try:
+        user.method('likes.delete',{'type': 'photo', 'owner_id': owner[i], 'item_id': item[i]})
+    except vk_api.exceptions.ApiError:
+        print('skipping like')
     time.sleep(0.6)
     print(i+1, "/", len_photo)
